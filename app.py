@@ -23,7 +23,7 @@ from screenshot_manager import is_allowed_image, save_uploaded_screenshot
 
 
 APP_TITLE = "法考每日督学"
-APP_ICON_PATH = Path(__file__).resolve().parent / "assets" / "app_icon.png"
+APP_ICON_PATH = Path(__file__).resolve().parent / "static" / "apple-touch-icon.png"
 SCREENSHOT_TYPES = ["做题记录", "听课历史", "错题记录", "首页统计", "其他"]
 COMPLETION_STATUSES = ["待补充", "未完成", "部分完成", "已完成"]
 
@@ -414,11 +414,6 @@ def main() -> None:
 
     with st.sidebar:
         page = st.radio("页面", ["截图上传", "待确认截图", "正式学习记录", "学习概览 Dashboard"])
-        st.markdown("---")
-        st.caption(
-            "手机访问：电脑启动系统，手机和电脑连接同一 Wi-Fi，"
-            "手机打开 http://电脑IP:8501 后可添加到主屏幕。"
-        )
 
     if page == "截图上传":
         page_upload()
