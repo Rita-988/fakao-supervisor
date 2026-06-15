@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from pathlib import Path
 
+from PIL import Image
 import streamlit as st
 
 from database import (
@@ -22,6 +23,7 @@ from screenshot_manager import is_allowed_image, save_uploaded_screenshot
 
 
 APP_TITLE = "法考每日督学"
+APP_ICON_PATH = Path(__file__).resolve().parent / "static" / "favicon-v2.png"
 SCREENSHOT_TYPES = ["做题记录", "听课历史", "错题记录", "首页统计", "其他"]
 COMPLETION_STATUSES = ["待补充", "未完成", "部分完成", "已完成"]
 
@@ -29,12 +31,13 @@ COMPLETION_STATUSES = ["待补充", "未完成", "部分完成", "已完成"]
 def inject_pwa_tags() -> None:
     st.markdown(
         """
-        <link rel="manifest" href="/app/static/manifest.json">
-        <link rel="apple-touch-icon" href="/app/static/apple-touch-icon.png">
+        <link rel="manifest" href="/app/static/manifest.json?v=2">
+        <link rel="apple-touch-icon" href="/app/static/apple-touch-icon-v2.png?v=2">
+        <link rel="icon" type="image/png" href="/app/static/favicon-v2.png?v=2">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-title" content="法考督学">
+        <meta name="apple-mobile-web-app-title" content="法考每日督学">
         <meta name="apple-mobile-web-app-status-bar-style" content="default">
-        <meta name="theme-color" content="#1677ff">
+        <meta name="theme-color" content="#ffffff">
         """,
         unsafe_allow_html=True,
     )
@@ -397,9 +400,10 @@ def page_dashboard() -> None:
 
 
 def main() -> None:
+    page_icon = Image.open(APP_ICON_PATH) if APP_ICON_PATH.exists() else "📚"
     st.set_page_config(
         page_title=APP_TITLE,
-        page_icon="static/apple-touch-icon.png",
+        page_icon=page_icon,
         layout="wide",
         initial_sidebar_state="expanded",
     )
