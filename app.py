@@ -4,7 +4,6 @@ from datetime import date, datetime
 from pathlib import Path
 
 import streamlit as st
-from PIL import Image
 
 from database import (
     confirm_screenshot,
@@ -23,7 +22,6 @@ from screenshot_manager import is_allowed_image, save_uploaded_screenshot
 
 
 APP_TITLE = "法考每日督学"
-APP_ICON_PATH = Path(__file__).resolve().parent / "static" / "apple-touch-icon.png"
 SCREENSHOT_TYPES = ["做题记录", "听课历史", "错题记录", "首页统计", "其他"]
 COMPLETION_STATUSES = ["待补充", "未完成", "部分完成", "已完成"]
 
@@ -399,12 +397,11 @@ def page_dashboard() -> None:
 
 
 def main() -> None:
-    page_icon = Image.open(APP_ICON_PATH) if APP_ICON_PATH.exists() else "📚"
     st.set_page_config(
         page_title=APP_TITLE,
-        page_icon=page_icon,
+        page_icon="static/apple-touch-icon.png",
         layout="wide",
-        initial_sidebar_state="auto",
+        initial_sidebar_state="expanded",
     )
     inject_pwa_tags()
     apply_mobile_styles()
